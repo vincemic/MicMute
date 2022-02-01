@@ -151,7 +151,7 @@ namespace MicMute
 
         public void PlaySound(string relativePath)
         {
-            string path = Path.Combine(Application.StartupPath, relativePath);
+            string path = Path.Combine(Application.StartupPath,"Sounds", relativePath);
             if (File.Exists(path))
             {
                 SoundPlayer simpleSound = new SoundPlayer(path);
