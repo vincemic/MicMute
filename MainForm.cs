@@ -7,7 +7,6 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Media;
-using System.Reactive;
 using System.Windows.Forms;
 
 
@@ -35,6 +34,10 @@ namespace MicMute
 
         private readonly string registryDeviceId = "DeviceId";
         private readonly string registryDeviceName = "DeviceName";
+
+        // play sound
+        private readonly string registryKeyPlaySound = "PlaySound";
+        private bool playsound = true;
 
         private string selectedDeviceId;
         private string selectedDeviceName;
@@ -86,6 +89,9 @@ namespace MicMute
             MyHide();
             selectedDeviceId = (string)registryKey.GetValue(registryDeviceId) ?? "";
             selectedDeviceName = (string)registryKey.GetValue(registryDeviceName) ?? DEFAULT_RECORDING_DEVICE;
+            
+            bool.TryParse((string) registryKey.GetValue(registryKeyPlaySound, "True"), out playsound) ;
+            playSoundsCheckBox.Checked = playsound;
 
             UpdateSelectedDevice();
             AudioController.AudioDeviceChanged.Subscribe(OnNextDevice);
@@ -151,11 +157,14 @@ namespace MicMute
 
         public void PlaySound(string relativePath)
         {
-            string path = Path.Combine(Application.StartupPath,"Sounds", relativePath);
-            if (File.Exists(path))
+            if (playsound)
             {
-                SoundPlayer simpleSound = new SoundPlayer(path);
-                simpleSound.Play();
+                string path = Path.Combine(Application.StartupPath, "Sounds", relativePath);
+                if (File.Exists(path))
+                {
+                    SoundPlayer simpleSound = new SoundPlayer(path);
+                    simpleSound.Play();
+                }
             }
         }
 
@@ -288,6 +297,7 @@ namespace MicMute
                     }
                 }
 
+                registryKey.SetValue(registryKeyPlaySound, playsound);
             }
         }
 
@@ -368,6 +378,16 @@ namespace MicMute
             micSelectorForm.Dispose();
 
             UpdateSelectedDevice();
+        }
+
+        private void playSoundsCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            playsound = playSoundsCheckBox.Checked;
+        }
+
+        private void iconContextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
         }
     }
 }
