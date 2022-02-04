@@ -6,13 +6,12 @@ namespace MicMute.Controllers
     {
      
         [HttpGet]
-        public string Toggle()
+        [Route("api/mic/toggle")]
+        public object Toggle()
         {
             CentralUIDispatcher.ToggleMuteButton();
-            return "toggled";
+            return  new { Message = "Toggled" };
         }
-
-  
 
   
     }

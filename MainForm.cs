@@ -7,6 +7,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Media;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -43,11 +44,6 @@ namespace MicMute
         private string selectedDeviceName;
         private MicSelectorForm micSelectorForm;
 
-
-        enum MicStatus
-        {
-            Initial, On, Off, Error
-        }
         private MicStatus currentStatus;
 
         private bool myVisible; 
@@ -389,5 +385,8 @@ namespace MicMute
         {
 
         }
+
+  
+
     }
 }
