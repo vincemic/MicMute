@@ -294,6 +294,8 @@ namespace MicMute
 
                 registryKey.SetValue(registryKeyPlaySound, playsound);
             }
+
+ 
         }
 
         private void ButtonReset_Click(object sender, EventArgs e)
@@ -385,7 +387,28 @@ namespace MicMute
 
         }
 
-  
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+
+
+                this.icon.Icon = null;
+                iconOff.Dispose();
+                iconOn.Dispose();
+                iconError.Dispose();
+
+                this.icon.Dispose();
+
+            }
+
+            base.Dispose(disposing);
+        }
+
 
     }
 }
