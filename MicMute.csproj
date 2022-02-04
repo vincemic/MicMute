@@ -127,7 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CentralUIDispatcher.cs" />
-    <Compile Include="Controllers\MicController.cs" />
+    <Compile Include="WebApiControllers\MicController.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

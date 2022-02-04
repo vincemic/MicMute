@@ -1,6 +1,6 @@
 ﻿using System.Web.Http;
 
-namespace MicMute.Controllers
+namespace MicMute.WebApiControllers
 {
     public class MicController : ApiController
     {
